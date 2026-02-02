@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio | Emanuel Cedeño</title>
+    <title>Portafolio Inteligente | Emanuel Cedeño</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* --- VARIABLES ESTILO TECH --- */
         :root {
-            --primary: #2563eb; 
-            --dark: #1e293b;    
-            --light: #f8fafc;   
-            --text: #334155;    
-            --white: #ffffff;
+            --primary-neon: #00f2fe; /* Cian brillante */
+            --secondary-neon: #4facfe; /* Azul eléctrico */
+            --accent-purple: #a855f7;
+            
+            --bg-dark: #0a0e17;    /* Fondo ultra oscuro */
+            --bg-card: #131c2a;    /* Fondo de tarjetas */
+            --bg-glass: rgba(19, 28, 42, 0.8); /* Efecto cristal */
+            
+            --text-light: #e2e8f0; /* Texto principal claro */
+            --text-dim: #94a3b8;   /* Texto secundario */
         }
 
         * {
@@ -25,19 +31,43 @@
         }
 
         body {
-            background-color: var(--light);
-            color: var(--text);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             line-height: 1.6;
+            overflow-x: hidden; /* Evitar scroll horizontal por animaciones */
         }
 
-        /* --- HEADER --- */
+        /* --- CLASES DE ANIMACIÓN (SCROLL REVEAL) --- */
+        /* Estado inicial: oculto y desplazado hacia abajo */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Suavizado */
+        }
+
+        /* Estado activo: visible y en su posición original */
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Retrasos para elementos en grupo (ej. tarjetas) */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+
+        /* --- HEADER GLASSMORPHISM --- */
         header {
-            background: var(--white);
+            background: var(--bg-glass);
+            backdrop-filter: blur(15px); /* Efecto cristal desenfocado */
+            -webkit-backdrop-filter: blur(15px);
             padding: 1rem 5%;
             position: fixed;
             width: 100%;
             top: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             z-index: 1000;
             display: flex;
             justify-content: space-between;
@@ -47,218 +77,369 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary);
+            background: linear-gradient(to right, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
         }
 
-        nav {
-            display: flex;
-            align-items: center;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            margin-right: 20px;
-        }
-
-        nav ul li {
-            margin-left: 20px;
-        }
+        nav { display: flex; align-items: center; }
+        nav ul { display: flex; list-style: none; margin-right: 25px; }
+        nav ul li { margin-left: 25px; }
 
         nav a {
             text-decoration: none;
-            color: var(--dark);
+            color: var(--text-light);
             font-weight: 500;
+            font-size: 0.95rem;
             transition: 0.3s;
+            position: relative;
         }
 
-        nav a:hover {
-            color: var(--primary);
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary-neon);
+            transition: width 0.3s;
         }
 
-        /* Estilos para el botón de Login y Perfil */
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: var(--primary-neon); }
+
+        /* Botón Login estilo Tech */
         .login-btn {
-            background-color: var(--primary);
-            color: white;
+            background: linear-gradient(135deg, var(--secondary-neon), var(--primary-neon));
+            color: var(--bg-dark);
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
             transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
         }
 
         .login-btn:hover {
-            background-color: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
         }
 
-        .user-profile {
-            display: none; /* Oculto por defecto */
-            align-items: center;
-            gap: 10px;
-        }
+        .user-profile { display: none; align-items: center; gap: 10px; }
+        .user-avatar { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary-neon); }
 
-        .user-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary);
-        }
-
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION INTELIGENTE --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: var(--white);
             padding: 0 20px;
+            position: relative;
+            /* Fondo con gradiente radial sutil tech */
+            background: radial-gradient(circle at center, #1a243a 0%, var(--bg-dark) 70%);
+            overflow: hidden;
+        }
+        
+        /* Efecto de partículas/grid de fondo sutil */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
-        .hero p { font-size: 1.2rem; margin-bottom: 30px; color: #cbd5e1; max-width: 600px; }
+        .hero-content { z-index: 1; }
 
-        .btn {
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, var(--primary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.25rem; margin-bottom: 35px; color: var(--text-dim); max-width: 650px; }
+
+        .btn-glow {
             display: inline-block;
-            background: var(--primary);
-            color: var(--white);
-            padding: 12px 30px;
-            border-radius: 50px;
+            background: transparent;
+            color: var(--primary-neon);
+            padding: 12px 35px;
+            border: 2px solid var(--primary-neon);
+            border-radius: 4px;
             text-decoration: none;
             font-weight: 600;
             transition: 0.3s;
-            border: none;
-            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
         }
 
-        .btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .btn-glow:hover::before { left: 100%; }
+        .btn-glow:hover {
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            background: rgba(0, 242, 254, 0.1);
+        }
 
         /* --- SECCIONES GENERALES --- */
-        section { padding: 80px 10%; }
-        .section-title { text-align: center; margin-bottom: 50px; }
-        .section-title h2 { font-size: 2.5rem; color: var(--dark); }
-        .section-title p { color: #64748b; }
+        section { padding: 100px 10%; position: relative; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--text-light);
+            position: relative;
+            display: inline-block;
+        }
+        .section-title h2::after {
+            content: '';
+            display: block; width: 50px; height: 3px; background: var(--primary-neon); margin: 15px auto 0;
+        }
+        .section-title p { color: var(--text-dim); margin-top: 15px; }
 
-        /* --- SKILLS --- */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        /* --- SKILLS TECH CARDS --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
         .skill-card {
-            background: var(--white); padding: 30px; border-radius: 10px; text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s;
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.4s;
+            position: relative;
         }
-        .skill-card:hover { transform: translateY(-5px); }
-        .skill-card i { font-size: 3rem; color: var(--primary); margin-bottom: 15px; }
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-neon);
+            box-shadow: 0 10px 30px -10px rgba(0, 242, 254, 0.3);
+        }
+        .skill-card i { font-size: 3.5rem; color: var(--primary-neon); margin-bottom: 20px; }
+        .skill-card h3 { color: var(--text-light); margin-bottom: 10px; }
+        .skill-card p { color: var(--text-dim); font-size: 0.9rem; }
 
-        /* --- PORTAFOLIO --- */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        /* --- PORTAFOLIO INTELIGENTE --- */
+        #projects { background: #0f1520; } /* Un tono ligeramente diferente */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+        
         .project-card {
-            background: var(--white); border-radius: 15px; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; display: flex; flex-direction: column;
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 242, 254, 0.1); /* Borde sutil neón */
+            display: flex; flex-direction: column;
+            transition: all 0.4s ease;
         }
-        .project-card:hover { transform: translateY(-5px); }
-        .project-header { background: var(--dark); color: white; padding: 20px; text-align: center; }
-        .project-header i { font-size: 2rem; }
+
+        .project-card:hover {
+            transform: scale(1.02); /* Efecto de "respiración" */
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
+            border-color: var(--secondary-neon);
+        }
+
+        .project-header {
+            background: linear-gradient(45deg, #1e2a4a, var(--bg-card));
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .project-header i {
+            font-size: 2.5rem;
+            background: linear-gradient(to bottom, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .project-content { padding: 25px; flex-grow: 1; }
-        .project-content h3 { margin-bottom: 10px; color: var(--dark); }
-        .tags { margin-bottom: 15px; }
-        .tag { background: #e2e8f0; color: #475569; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px; display: inline-block; margin-bottom: 5px; }
-        .project-footer { padding: 20px; border-top: 1px solid #f1f5f9; text-align: center; }
-        .btn-outline {
-            border: 2px solid var(--primary); color: var(--primary); background: transparent;
-            padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; transition: 0.3s;
+        .project-content h3 { margin-bottom: 12px; color: var(--text-light); font-size: 1.3rem; }
+        
+        .tags { margin-bottom: 18px; }
+        .tag {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--primary-neon);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 6px; display: inline-block; margin-bottom: 6px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
         }
-        .btn-outline:hover { background: var(--primary); color: white; }
 
-        /* --- CONTACTO --- */
-        .contact-container { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; }
+        .project-content p { color: var(--text-dim); font-size: 0.95rem; }
+
+        .project-footer { padding: 20px 25px; border-top: 1px solid rgba(255,255,255,0.05); }
+        
+        .btn-outline-tech {
+            display: block; width: 100%; text-align: center;
+            padding: 10px 0;
+            border: 1px solid var(--secondary-neon);
+            color: var(--secondary-neon);
+            border-radius: 4px;
+            text-decoration: none; font-weight: 600; transition: 0.3s;
+            background: transparent;
+        }
+        
+        .btn-outline-tech:hover {
+            background: var(--secondary-neon);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-dev {
+            border-color: var(--accent-purple); color: var(--accent-purple);
+        }
+        .btn-dev:hover {
+            background: var(--accent-purple); color: white;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+
+
+        /* --- CONTACTO FUTURISTA --- */
+        .contact-container { display: flex; flex-wrap: wrap; gap: 50px; justify-content: center; }
         .contact-info { flex: 1; min-width: 300px; }
-        .contact-item { display: flex; align-items: center; margin-bottom: 20px; font-size: 1.1rem; }
+        
+        .contact-item { display: flex; align-items: center; margin-bottom: 25px; }
         .contact-item i {
-            width: 40px; height: 40px; background: var(--primary); color: white;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 15px;
+            width: 45px; height: 45px;
+            background: rgba(0, 242, 254, 0.1); color: var(--primary-neon);
+            border: 1px solid var(--primary-neon);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 18px; font-size: 1.2rem;
         }
-        .form-box { flex: 1; min-width: 300px; background: var(--white); padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 5px; font-size: 1rem;
+        .contact-item strong { color: var(--text-light); display: block; margin-bottom: 3px;}
+        .contact-item p { color: var(--text-dim); }
+
+        .form-box {
+            flex: 1.2; min-width: 320px;
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        /* Efecto de luz en el formulario */
+        .form-box::before {
+            content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-neon), transparent, var(--secondary-neon));
+            z-index: -1; border-radius: 16px; opacity: 0.3; filter: blur(10px);
         }
 
-        footer { background: var(--dark); color: var(--white); text-align: center; padding: 20px; margin-top: 50px; }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-light); font-size: 0.9rem;}
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px; color: var(--text-light); font-size: 1rem; transition: 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-neon);
+            background: rgba(0, 242, 254, 0.05);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.1);
+        }
+        
+        .form-group select option { background: var(--bg-card); color: var(--text-light); }
+
+        footer { background: #070a11; color: var(--text-dim); text-align: center; padding: 30px; margin-top: 80px; border-top: 1px solid rgba(255,255,255,0.05); }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            nav ul { display: none; } /* Ocultar menú en móvil para simplificar */
+            .hero h1 { font-size: 2.5rem; }
+            nav ul { display: none; } /* Menú móvil simplificado */
+            header { padding: 1rem 20px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">EC.Dev</div>
+        <div class="logo reveal">EC.Dev_</div>
         <nav>
-            <ul>
+            <ul class="reveal delay-1">
                 <li><a href="#about">Perfil</a></li>
                 <li><a href="#skills">Habilidades</a></li>
                 <li><a href="#projects">Proyectos</a></li>
                 <li><a href="#contact">Contacto</a></li>
             </ul>
             
-            <button id="loginBtn" class="login-btn">
-                <i class="fa-brands fa-google"></i> Acceder
-            </button>
+            <div class="reveal delay-2">
+                <button id="loginBtn" class="login-btn">
+                    <i class="fa-brands fa-google"></i> Acceder
+                </button>
 
-            <div id="userProfile" class="user-profile">
-                <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
-                <button id="logoutBtn" class="btn-outline" style="padding: 4px 10px; font-size: 0.8rem;">Salir</button>
+                <div id="userProfile" class="user-profile">
+                    <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
+                    <button id="logoutBtn" class="btn-outline-tech" style="padding: 4px 12px; font-size: 0.8rem; width: auto;">Salir</button>
+                </div>
             </div>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Emanuel Cedeño</h1>
-        <p>Desarrollador de Soluciones Web & Sistemas de Gestión Logística</p>
-        <a href="#projects" class="btn">Ver Proyectos</a>
+        <div class="hero-content">
+            <h1 class="reveal">Emanuel Cedeño</h1>
+            <p class="reveal delay-2">Desarrollador de Soluciones Web & Sistemas de Gestión Logística en entornos digitales.</p>
+            <div class="reveal delay-3">
+                <a href="#projects" class="btn-glow">Explorar Proyectos <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 8px;"></i></a>
+            </div>
+        </div>
     </section>
 
     <section id="skills">
-        <div class="section-title">
+        <div class="section-title reveal">
             <h2>Conocimientos y Herramientas</h2>
-            <p>Tecnologías que utilizo para construir soluciones escalables</p>
+            <p>Stack tecnológico para construir soluciones escalables y modernas.</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-card">
+            <div class="skill-card reveal delay-1">
                 <i class="fa-brands fa-html5"></i>
-                <h3>Frontend</h3>
-                <p>HTML5, CSS3, JavaScript (ES6+), Diseño Responsivo.</p>
+                <h3>Frontend Moderno</h3>
+                <p>HTML5, CSS3, JavaScript (ES6+), Interfaces reactivas y diseño adaptable.</p>
             </div>
-            <div class="skill-card">
-                <i class="fa-solid fa-database"></i>
-                <h3>Backend & Datos</h3>
-                <p>Google Firebase, Firestore, Lógica de Negocio en la Nube.</p>
+            <div class="skill-card reveal delay-2">
+                <i class="fa-solid fa-server"></i>
+                <h3>Backend & Cloud</h3>
+                <p>Google Firebase, Firestore Database, Autenticación segura y Serverless.</p>
             </div>
-            <div class="skill-card">
-                <i class="fa-solid fa-toolbox"></i>
-                <h3>Herramientas</h3>
-                <p>Cloudinary (Gestión de Archivos), Git, Control de Usuarios.</p>
+            <div class="skill-card reveal delay-3">
+                <i class="fa-solid fa-microchip"></i>
+                <h3>Ecosistema Dev</h3>
+                <p>Cloudinary (Media API), Git, Control de versiones y gestión de usuarios.</p>
             </div>
         </div>
     </section>
 
-    <section id="projects" style="background-color: #f1f5f9;">
-        <div class="section-title">
-            <h2>Portafolio de Proyectos</h2>
-            <p>Sistemas funcionales desarrollados para necesidades reales</p>
+    <section id="projects">
+        <div class="section-title reveal">
+            <h2>Portafolio de Sistemas</h2>
+            <p>Soluciones funcionales desarrolladas para optimizar procesos reales.</p>
         </div>
         <div class="portfolio-grid">
 
-            <div class="project-card">
+            <div class="project-card reveal delay-1">
                 <div class="project-header">
                     <i class="fa-solid fa-boxes-stacked"></i>
                 </div>
@@ -266,63 +447,64 @@
                     <h3>Sistema de Inventario FCI Log</h3>
                     <div class="tags">
                         <span class="tag">Logística</span>
-                        <span class="tag">Control de Stock</span>
+                        <span class="tag">Tiempo Real</span>
                     </div>
-                    <p>Plataforma para optimizar el flujo de suministros. Centraliza el stock en tiempo real, gestiona solicitudes y aprobaciones.</p>
+                    <p>Plataforma para la optimización del flujo de suministros. Centraliza stock, gestiona solicitudes y flujo de aprobaciones.</p>
                 </div>
                 <div class="project-footer">
-                    <a href="https://sdg12-eng.github.io/Inventario.com/" target="_blank" class="btn-outline">Ver Sistema <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <a href="https://sdg12-eng.github.io/Inventario.com/" target="_blank" class="btn-outline-tech">Ver Demo en Vivo <i class="fa-solid fa-satellite-dish"></i></a>
                 </div>
             </div>
 
-            <div class="project-card">
+            <div class="project-card reveal delay-2">
                 <div class="project-header">
-                    <i class="fa-solid fa-file-contract"></i>
+                    <i class="fa-solid fa-file-shield"></i>
                 </div>
                 <div class="project-content">
                     <h3>Sistema de Gestión Integral</h3>
                     <div class="tags">
-                        <span class="tag">Administración</span>
-                        <span class="tag">Documentos</span>
+                        <span class="tag">Corporativo</span>
+                        <span class="tag">Documental</span>
                     </div>
-                    <p>Solución para la centralización de documentos y procesos administrativos. Permite la digitalización de archivos y seguimiento.</p>
+                    <p>Solución para la centralización de procesos administrativos. Digitalización segura de archivos y trazabilidad de trámites.</p>
                 </div>
                 <div class="project-footer">
-                    <a href="https://sdg12-eng.github.io/SistemadeGestion/" target="_blank" class="btn-outline">Ver Sistema <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <a href="https://sdg12-eng.github.io/SistemadeGestion/" target="_blank" class="btn-outline-tech">Ver Demo en Vivo <i class="fa-solid fa-satellite-dish"></i></a>
                 </div>
             </div>
 
-            <div class="project-card">
+            <div class="project-card reveal delay-3">
                 <div class="project-header">
-                    <i class="fa-solid fa-clipboard-list"></i>
+                    <i class="fa-solid fa-database"></i>
                 </div>
                 <div class="project-content">
-                    <h3>Sistema de Formularios</h3>
+                    <h3>Sistema de Formularios Dinámicos</h3>
                     <div class="tags">
-                        <span class="tag">Dinámico</span>
-                        <span class="tag">Registro</span>
+                        <span class="tag">Flexibilidad</span>
+                        <span class="tag">Data Collection</span>
                     </div>
-                    <p>Herramienta flexible para crear registros de activos y recolección de datos sin modificar código. Generación de reportes.</p>
+                    <p>Herramienta adaptable para el registro de activos y recolección de datos estructurados sin modificar el código base.</p>
                 </div>
                 <div class="project-footer">
-                    <a href="https://sdg12-eng.github.io/archivos.com/" target="_blank" class="btn-outline">Ver Sistema <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <a href="https://sdg12-eng.github.io/archivos.com/" target="_blank" class="btn-outline-tech">Ver Demo en Vivo <i class="fa-solid fa-satellite-dish"></i></a>
                 </div>
             </div>
 
-             <div class="project-card">
+             <div class="project-card reveal delay-4">
                 <div class="project-header">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </div>
                 <div class="project-content">
-                    <h3>Sistema de Ventas</h3>
+                    <h3>Sistema de Ventas (Vendors)</h3>
                     <div class="tags">
+                        <span class="tag" style="border-color: var(--accent-purple); color: var(--accent-purple);">En Desarrollo</span>
                         <span class="tag">POS</span>
                         <span class="tag">Comercial</span>
                     </div>
-                    <p>Aplicación para el control de transacciones comerciales, facturación y registro de clientes. (Actualmente en desarrollo).</p>
+                    <p>Aplicación en construcción para el control de transacciones comerciales, facturación y registro de clientes.</p>
                 </div>
                 <div class="project-footer">
-                    <button class="btn-outline" disabled style="opacity: 0.5; cursor: not-allowed;">En Desarrollo</button>
+                    <a href="https://github.com/SDG12-eng/Vendors" target="_blank" class="btn-outline-tech btn-dev">Ver Código en GitHub <i class="fa-brands fa-github"></i></a>
                 </div>
             </div>
 
@@ -330,85 +512,116 @@
     </section>
 
     <section id="contact">
-        <div class="section-title">
-            <h2>Solicitar Servicio</h2>
-            <p>Inicia sesión con Google para autocompletar tus datos.</p>
+        <div class="section-title reveal">
+            <h2>Iniciar Solicitud de Servicio</h2>
+            <p>Utiliza tu cuenta de Google para agilizar el proceso de contacto.</p>
         </div>
         <div class="contact-container">
-            <div class="contact-info">
+            <div class="contact-info reveal delay-1">
                 <div class="contact-item">
-                    <i class="fa-solid fa-phone"></i>
+                    <i class="fa-solid fa-phone-volume"></i>
                     <div>
-                        <strong>Teléfono</strong>
+                        <strong>Línea Directa</strong>
                         <p>6389-2022</p>
                     </div>
                 </div>
                 <div class="contact-item">
-                    <i class="fa-solid fa-envelope"></i>
+                    <i class="fa-solid fa-at"></i>
                     <div>
-                        <strong>Gmail Principal</strong>
+                        <strong>Correo Principal</strong>
                         <p>emanuel.cedeno1234@gmail.com</p>
                     </div>
                 </div>
                 <div class="contact-item">
-                    <i class="fa-solid fa-envelope"></i>
+                    <i class="fa-solid fa-inbox"></i>
                     <div>
-                        <strong>Gmail Secundario</strong>
+                        <strong>Correo Secundario</strong>
                         <p>vendorssa2006@gmail.com</p>
                     </div>
                 </div>
                 <div class="contact-item">
-                    <i class="fa-solid fa-location-dot"></i>
+                    <i class="fa-solid fa-map-location-dot"></i>
                     <div>
-                        <strong>Ubicación</strong>
+                        <strong>Base de Operaciones</strong>
                         <p>Colón, Panamá</p>
                     </div>
                 </div>
             </div>
 
-            <div class="form-box">
+            <div class="form-box reveal delay-2">
                 <form id="contactForm">
                     <div class="form-group">
-                        <label>Nombre Completo</label>
-                        <input type="text" id="name" placeholder="Tu nombre" required>
+                        <label>Identificación / Nombre</label>
+                        <input type="text" id="name" placeholder="Tu nombre completo" required>
                     </div>
                     <div class="form-group">
-                        <label>Empresa (Opcional)</label>
+                        <label>Organización (Opcional)</label>
                         <input type="text" id="company" placeholder="Nombre de tu empresa">
                     </div>
                     <div class="form-group">
-                        <label>Correo Electrónico</label>
-                        <input type="email" id="email" placeholder="tucorreo@ejemplo.com" required>
+                        <label>Correo de Contacto</label>
+                        <input type="email" id="email" placeholder="nombre@ejemplo.com" required>
                     </div>
                     <div class="form-group">
-                        <label>Tipo de Servicio</label>
+                        <label>Tipo de Requerimiento</label>
                         <select id="service">
-                            <option value="Sistema de Inventario">Sistema de Inventario</option>
+                            <option value="Sistema de Inventario">Sistema de Inventario Logístico</option>
                             <option value="Desarrollo Web">Desarrollo Web a Medida</option>
-                            <option value="Sistema de Ventas">Sistema de Ventas</option>
-                            <option value="Otro">Otro</option>
+                            <option value="Sistema de Ventas">Sistema de Punto de Venta (POS)</option>
+                            <option value="Consultoría">Consultoría Técnica</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Mensaje / Descripción</label>
-                        <textarea id="message" rows="4" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+                        <label>Detalles del Proyecto</label>
+                        <textarea id="message" rows="4" placeholder="Describe brevemente tus necesidades..." required></textarea>
                     </div>
-                    <button type="submit" class="btn" style="width: 100%;">Enviar Solicitud</button>
+                    <button type="submit" class="login-btn" style="width: 100%; justify-content: center;">Procesar Solicitud <i class="fa-solid fa-paper-plane"></i></button>
                 </form>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Emanuel Cedeño. Todos los derechos reservados.</p>
+        <p class="reveal">© 2024 Emanuel Cedeño. Arquitectura de Sistemas & Desarrollo Web.</p>
     </footer>
 
+    <script>
+        // Esperar a que el DOM cargue
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // Opciones para el observador (se activa cuando el 15% del elemento es visible)
+            const options = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px" // Un pequeño margen inferior para suavizar la entrada
+            };
+
+            // Función que se ejecuta cuando se intersecta
+            const revealOnScroll = new IntersectionObserver(function(entries, revealOnScroll) {
+                entries.forEach(entry => {
+                    // Si el elemento es visible en el viewport
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        // Añadir la clase .active para activar la animación CSS
+                        entry.target.classList.add('active');
+                        // Dejar de observar el elemento una vez animado (para que no se repita)
+                        revealOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            // Seleccionar todos los elementos con la clase .reveal
+            const revealElements = document.querySelectorAll(".reveal");
+            revealElements.forEach(el => {
+                revealOnScroll.observe(el);
+            });
+        });
+    </script>
+
     <script type="module">
-        // Importar funciones de Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Configuración de Firebase (Tu API)
         const firebaseConfig = {
             apiKey: "AIzaSyDS75-IATmc4vgELtbsAwyHyAfPLLWv0kI",
             authDomain: "portafolio-36b3a.firebaseapp.com",
@@ -418,68 +631,45 @@
             appId: "1:198114342515:web:57a32c2a612155f7ae5c06"
         };
 
-        // Inicializar Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // Elementos del DOM
         const loginBtn = document.getElementById('loginBtn');
         const logoutBtn = document.getElementById('logoutBtn');
         const userProfile = document.getElementById('userProfile');
         const userAvatar = document.getElementById('userAvatar');
-        
-        // Campos del formulario
         const nameInput = document.getElementById('name');
         const emailInput = document.getElementById('email');
 
-        // Función para Iniciar Sesión
         loginBtn.addEventListener('click', () => {
             signInWithPopup(auth, provider)
-                .then((result) => {
-                    // El usuario ha iniciado sesión
-                    console.log("Usuario logueado:", result.user);
-                }).catch((error) => {
-                    console.error("Error en login:", error);
-                    alert("Error al iniciar sesión: " + error.message);
-                });
+                .then((result) => { console.log("Usuario logueado:", result.user); })
+                .catch((error) => { alert("Error al iniciar sesión: " + error.message); });
         });
 
-        // Función para Cerrar Sesión
         logoutBtn.addEventListener('click', () => {
             signOut(auth).then(() => {
-                // Sign-out successful.
-                console.log("Sesión cerrada");
-                // Limpiar formulario al salir
                 nameInput.value = "";
                 emailInput.value = "";
-            }).catch((error) => {
-                console.error("Error al salir:", error);
             });
         });
 
-        // Observador de estado (Detecta si hay usuario logueado o no)
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // Usuario Logueado
                 loginBtn.style.display = 'none';
                 userProfile.style.display = 'flex';
-                userAvatar.src = user.photoURL; // Foto de Google
-                
-                // Autocompletar formulario
+                userAvatar.src = user.photoURL;
                 nameInput.value = user.displayName;
                 emailInput.value = user.email;
             } else {
-                // Usuario No Logueado
                 loginBtn.style.display = 'flex';
                 userProfile.style.display = 'none';
             }
         });
 
-        // Lógica de Envío del Formulario (Mailto)
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const name = document.getElementById('name').value;
             const company = document.getElementById('company').value;
             const email = document.getElementById('email').value;
@@ -487,20 +677,11 @@
             const message = document.getElementById('message').value;
             
             const emailDestino = "emanuel.cedeno1234@gmail.com";
-            
-            const subject = encodeURIComponent(`Solicitud de Servicio: ${service} - ${name}`);
+            const subject = encodeURIComponent(`🔥 Solicitud: ${service} - ${name}`);
             const body = encodeURIComponent(
-                `Hola Emanuel,\n\n` +
-                `Me interesa solicitar el siguiente servicio:\n` +
-                `--------------------------------\n` +
-                `👤 Cliente: ${name}\n` +
-                `📧 Correo Cliente: ${email}\n` +
-                `🏢 Empresa: ${company}\n` +
-                `🛠 Servicio: ${service}\n` +
-                `📝 Mensaje: ${message}\n` +
-                `--------------------------------\n` 
+                `Hola Emanuel,\n\nSolicitud entrante desde el portafolio:\n\n` +
+                `👤: ${name}\n📧: ${email}\n🏢: ${company}\n🛠: ${service}\n\n📝 Detalle:\n${message}`
             );
-
             window.location.href = `mailto:${emailDestino}?subject=${subject}&body=${body}`;
         });
     </script>
