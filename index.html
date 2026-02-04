@@ -7,168 +7,321 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <style>:root{--primary-neon:#00f2fe;--secondary-neon:#4facfe;--accent-purple:#a855f7;--bg-dark:#0a0e17;--bg-card:#131c2a;--bg-glass:rgba(19, 28, 42, 0.8);--text-light:#e2e8f0;--text-dim:#94a3b8}*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth}body{background-color:var(--bg-dark);color:var(--text-light);line-height:1.6;overflow-x:hidden}.reveal{opacity:0;transform:translateY(50px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}.reveal.active{opacity:1;transform:translateY(0)}.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}header{background:var(--bg-glass);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);padding:1rem 5%;position:fixed;width:100%;top:0;border-bottom:1px solid rgba(255,255,255,.05);z-index:1000;display:flex;justify-content:space-between;align-items:center}.logo{font-size:1.5rem;font-weight:700;background:linear-gradient(to right,var(--primary-neon),var(--secondary-neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}nav{display:flex;align-items:center}nav ul{display:flex;list-style:none;margin-right:25px}nav ul li{margin-left:25px}nav a{text-decoration:none;color:var(--text-light);font-weight:500;font-size:.95rem;transition:.3s;position:relative}nav a:after{content:'';position:absolute;width:0;height:2px;bottom:-5px;left:0;background:var(--primary-neon);transition:width .3s}nav a:hover:after{width:100%}nav a:hover{color:var(--primary-neon)}.login-btn{background:linear-gradient(135deg,var(--secondary-neon),var(--primary-neon));color:var(--bg-dark);border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-weight:700;display:flex;align-items:center;gap:8px;transition:.3s;box-shadow:0 0 15px rgba(0,242,254,.3)}.login-btn:hover{transform:translateY(-2px);box-shadow:0 0 25px rgba(0,242,254,.5)}.user-profile{display:none;align-items:center;gap:10px}.user-avatar{width:35px;height:35px;border-radius:50%;border:2px solid var(--primary-neon)}.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 20px;position:relative;background:radial-gradient(circle at center,#1a243a 0,var(--bg-dark) 70%);overflow:hidden}.hero:before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(0,242,254,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,242,254,.03) 1px,transparent 1px);background-size:30px 30px;z-index:0;pointer-events:none}.hero-content{z-index:1}.hero h1{font-size:3.5rem;margin-bottom:15px;background:linear-gradient(to right,#fff,var(--primary-neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero p{font-size:1.25rem;margin-bottom:35px;color:var(--text-dim);max-width:650px}.btn-glow{display:inline-block;background:0 0;color:var(--primary-neon);padding:12px 35px;border:2px solid var(--primary-neon);border-radius:4px;text-decoration:none;font-weight:600;transition:.3s;position:relative;overflow:hidden;z-index:1}.btn-glow:before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,242,254,.2),transparent);transition:.5s;z-index:-1}.btn-glow:hover:before{left:100%}.btn-glow:hover{box-shadow:0 0 20px rgba(0,242,254,.4);background:rgba(0,242,254,.1)}section{padding:100px 10%;position:relative}.section-title{text-align:center;margin-bottom:60px}.section-title h2{font-size:2.5rem;color:var(--text-light);position:relative;display:inline-block}.section-title h2:after{content:'';display:block;width:50px;height:3px;background:var(--primary-neon);margin:15px auto 0}.section-title p{color:var(--text-dim);margin-top:15px}.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}.skill-card{background:var(--bg-card);padding:35px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,.05);transition:.4s;position:relative}.skill-card:hover{transform:translateY(-10px);border-color:var(--primary-neon);box-shadow:0 10px 30px -10px rgba(0,242,254,.3)}.skill-card i{font-size:3.5rem;color:var(--primary-neon);margin-bottom:20px}.skill-card h3{color:var(--text-light);margin-bottom:10px}.skill-card p{color:var(--text-dim);font-size:.9rem}#projects{background:#0f1520}.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:35px}.project-card{background:var(--bg-card);border-radius:15px;overflow:hidden;border:1px solid rgba(0,242,254,.1);display:flex;flex-direction:column;transition:all .4s ease}.project-card:hover{transform:scale(1.02);box-shadow:0 0 25px rgba(0,242,254,.15);border-color:var(--secondary-neon)}.project-header{background:linear-gradient(45deg,#1e2a4a,var(--bg-card));padding:25px;text-align:center;border-bottom:1px solid rgba(255,255,255,.05)}.project-header i{font-size:2.5rem;background:linear-gradient(to bottom,var(--primary-neon),var(--secondary-neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.project-content{padding:25px;flex-grow:1}.project-content h3{margin-bottom:12px;color:var(--text-light);font-size:1.3rem}.tags{margin-bottom:18px}.tag{background:rgba(0,242,254,.1);color:var(--primary-neon);padding:5px 12px;border-radius:20px;font-size:.75rem;font-weight:600;margin-right:6px;display:inline-block;margin-bottom:6px;border:1px solid rgba(0,242,254,.2)}.project-content p{color:var(--text-dim);font-size:.95rem}.project-footer{padding:20px 25px;border-top:1px solid rgba(255,255,255,.05)}.btn-outline-tech{display:block;width:100%;text-align:center;padding:10px 0;border:1px solid var(--secondary-neon);color:var(--secondary-neon);border-radius:4px;text-decoration:none;font-weight:600;transition:.3s;background:0 0}.btn-outline-tech:hover{background:var(--secondary-neon);color:var(--bg-dark);box-shadow:0 0 15px rgba(79,172,254,.4)}.btn-dev{border-color:var(--accent-purple);color:var(--accent-purple)}.btn-dev:hover{background:var(--accent-purple);color:#fff;box-shadow:0 0 15px rgba(168,85,247,.4)}.contact-container{display:flex;flex-wrap:wrap;gap:50px;justify-content:center}.contact-info{flex:1;min-width:300px}.contact-item{display:flex;align-items:center;margin-bottom:25px}.contact-item i{width:45px;height:45px;background:rgba(0,242,254,.1);color:var(--primary-neon);border:1px solid var(--primary-neon);border-radius:50%;display:flex;justify-content:center;align-items:center;margin-right:18px;font-size:1.2rem}.contact-item strong{color:var(--text-light);display:block;margin-bottom:3px}.contact-item p{color:var(--text-dim)}.form-box{flex:1.2;min-width:320px;background:var(--bg-card);padding:40px;border-radius:15px;border:1px solid rgba(255,255,255,.05);box-shadow:0 10px 40px -10px rgba(0,0,0,.5);position:relative}.form-box:before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;background:linear-gradient(45deg,var(--primary-neon),transparent,var(--secondary-neon));z-index:-1;border-radius:16px;opacity:.3;filter:blur(10px)}.form-group{margin-bottom:25px}.form-group label{display:block;margin-bottom:10px;font-weight:600;color:var(--text-light);font-size:.9rem}.form-group input,.form-group select,.form-group textarea{width:100%;padding:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:var(--text-light);font-size:1rem;transition:.3s}.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:0;border-color:var(--primary-neon);background:rgba(0,242,254,.05);box-shadow:0 0 10px rgba(0,242,254,.1)}.form-group select option{background:var(--bg-card);color:var(--text-light)}footer{background:#070a11;color:var(--text-dim);text-align:center;padding:30px;margin-top:80px;border-top:1px solid rgba(255,255,255,.05)}@media(max-width:768px){.hero h1{font-size:2.5rem}nav ul{display:none}header{padding:1rem 20px}}</style>
+    <style>
+        /* --- ESTILOS BASE (Mismos del diseño anterior) --- */
+        :root {
+            --primary-neon: #00f2fe; --secondary-neon: #4facfe; --accent-purple: #a855f7;
+            --bg-dark: #0a0e17; --bg-card: #131c2a; --bg-glass: rgba(19, 28, 42, 0.8);
+            --text-light: #e2e8f0; --text-dim: #94a3b8;
+            --success: #10b981; --danger: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; overflow-x: hidden; }
+
+        /* Animaciones */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+
+        /* Header */
+        header { background: var(--bg-glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 1rem 5%; position: fixed; width: 100%; top: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; background: linear-gradient(to right, var(--primary-neon), var(--secondary-neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        nav { display: flex; align-items: center; }
+        nav ul { display: flex; list-style: none; margin-right: 25px; }
+        nav ul li { margin-left: 25px; }
+        nav a { text-decoration: none; color: var(--text-light); transition: 0.3s; }
+        nav a:hover { color: var(--primary-neon); }
+
+        .login-btn { background: linear-gradient(135deg, var(--secondary-neon), var(--primary-neon)); color: var(--bg-dark); border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .user-profile { display: none; align-items: center; gap: 10px; }
+        .user-avatar { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary-neon); }
+        .btn-outline-tech { border: 1px solid var(--secondary-neon); color: var(--secondary-neon); padding: 5px 15px; background: transparent; cursor: pointer; border-radius: 4px; }
+
+        /* Hero & Sections */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #1a243a 0%, var(--bg-dark) 70%); }
+        .hero h1 { font-size: 3.5rem; background: linear-gradient(to right, #fff, var(--primary-neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        section { padding: 100px 10%; position: relative; }
+        .section-title h2 { font-size: 2.5rem; color: var(--text-light); }
+
+        /* --- NUEVO: ESTILOS PANEL ADMIN --- */
+        #adminPanel { 
+            display: none; /* Oculto por defecto */
+            background: #111827; 
+            padding-top: 120px; 
+            border-bottom: 1px solid var(--primary-neon);
+        }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .admin-badge { background: var(--accent-purple); color: white; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        
+        .messages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .message-card { 
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; position: relative; 
+            transition: 0.3s;
+        }
+        .message-card:hover { border-color: var(--primary-neon); }
+        .msg-meta { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 10px; display: flex; justify-content: space-between; }
+        .msg-body { color: var(--text-light); margin-bottom: 15px; font-size: 0.95rem; }
+        .msg-actions { display: flex; justify-content: flex-end; gap: 10px; }
+        .btn-delete { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .btn-reply { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 0.9rem; }
+
+        /* Projects & Forms (Mismos estilos previos) */
+        .skills-grid, .portfolio-grid { display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+        .skill-card, .project-card { background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .form-box { background: var(--bg-card); padding: 40px; border-radius: 15px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 6px; margin-bottom: 15px; }
+        .btn-glow { background: transparent; color: var(--primary-neon); padding: 10px 30px; border: 2px solid var(--primary-neon); text-decoration: none; border-radius: 4px; }
+
+        @media (max-width: 768px) { nav ul { display: none; } }
+    </style>
 </head>
 <body>
 
     <header>
-        <div class="logo reveal">EC.Dev_</div>
+        <div class="logo">EC.Dev_</div>
         <nav>
-            <ul class="reveal delay-1">
+            <ul>
                 <li><a href="#about">Perfil</a></li>
-                <li><a href="#skills">Habilidades</a></li>
                 <li><a href="#projects">Proyectos</a></li>
                 <li><a href="#contact">Contacto</a></li>
             </ul>
-            <div class="reveal delay-2">
+            <div>
                 <button id="loginBtn" class="login-btn"><i class="fa-brands fa-google"></i> Acceder</button>
                 <div id="userProfile" class="user-profile">
-                    <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
-                    <button id="logoutBtn" class="btn-outline-tech" style="padding: 4px 12px; font-size: 0.8rem; width: auto;">Salir</button>
+                    <img id="userAvatar" src="" class="user-avatar">
+                    <button id="logoutBtn" class="btn-outline-tech">Salir</button>
                 </div>
             </div>
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="reveal">Emanuel Cedeño</h1>
-            <p class="reveal delay-2">Desarrollador de Soluciones Web & Sistemas de Gestión Logística en entornos digitales.</p>
-            <div class="reveal delay-3">
-                <a href="#projects" class="btn-glow">Explorar Proyectos <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 8px;"></i></a>
+    <section id="adminPanel">
+        <div class="admin-header">
+            <div>
+                <h2 style="font-size: 1.8rem; display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-user-shield" style="color: var(--accent-purple);"></i> Panel Admin
+                    <span class="admin-badge">Modo Dios Activado</span>
+                </h2>
+                <p style="color: var(--text-dim);">Gestión de solicitudes en tiempo real</p>
             </div>
+            <div id="msgCount" style="font-size: 2rem; font-weight: bold; color: var(--primary-neon);">0</div>
+        </div>
+        <div id="messagesContainer" class="messages-grid">
+            <p>Cargando solicitudes...</p>
         </div>
     </section>
 
-    <section id="skills">
-        <div class="section-title reveal">
-            <h2>Conocimientos y Herramientas</h2>
-            <p>Stack tecnológico para construir soluciones escalables y modernas.</p>
-        </div>
-        <div class="skills-grid">
-            <div class="skill-card reveal delay-1">
-                <i class="fa-brands fa-html5"></i>
-                <h3>Frontend Moderno</h3>
-                <p>HTML5, CSS3, JavaScript (ES6+), Interfaces reactivas y diseño adaptable.</p>
-            </div>
-            <div class="skill-card reveal delay-2">
-                <i class="fa-solid fa-server"></i>
-                <h3>Backend & Cloud</h3>
-                <p>Google Firebase, Firestore Database, Autenticación segura y Serverless.</p>
-            </div>
-            <div class="skill-card reveal delay-3">
-                <i class="fa-solid fa-microchip"></i>
-                <h3>Ecosistema Dev</h3>
-                <p>Cloudinary (Media API), Git, Control de versiones y gestión de usuarios.</p>
-            </div>
-        </div>
+    <section class="hero" id="about">
+        <h1>Emanuel Cedeño</h1>
+        <p style="color: #94a3b8; margin: 15px 0 30px;">Arquitecto de Sistemas & Desarrollador Fullstack</p>
+        <a href="#contact" class="btn-glow">Cotizar Proyecto</a>
     </section>
 
     <section id="projects">
-        <div class="section-title reveal">
-            <h2>Portafolio de Sistemas</h2>
-            <p>Soluciones funcionales desarrolladas para optimizar procesos reales.</p>
+        <div class="section-title">
+            <h2>Portafolio</h2>
         </div>
         <div class="portfolio-grid">
-            <div class="project-card reveal delay-1">
-                <div class="project-header"><i class="fa-solid fa-boxes-stacked"></i></div>
-                <div class="project-content">
-                    <h3>Sistema de Inventario FCI Log</h3>
-                    <div class="tags"><span class="tag">Logística</span><span class="tag">Tiempo Real</span></div>
-                    <p>Plataforma para la optimización del flujo de suministros. Centraliza stock, gestiona solicitudes y flujo de aprobaciones.</p>
-                </div>
-                <div class="project-footer">
-                    <a href="https://sdg12-eng.github.io/Inventario.com/" target="_blank" class="btn-outline-tech">Ver Demo en Vivo <i class="fa-solid fa-satellite-dish"></i></a>
-                </div>
+            <div class="project-card">
+                <h3>📦 FCI Log System</h3>
+                <p>Gestión de inventarios en tiempo real.</p>
+                <a href="#" style="color: var(--primary-neon);">Ver Demo</a>
             </div>
-            <div class="project-card reveal delay-2">
-                <div class="project-header"><i class="fa-solid fa-file-shield"></i></div>
-                <div class="project-content">
-                    <h3>Sistema de Gestión Integral</h3>
-                    <div class="tags"><span class="tag">Corporativo</span><span class="tag">Documental</span></div>
-                    <p>Solución para la centralización de procesos administrativos. Digitalización segura de archivos y trazabilidad de trámites.</p>
-                </div>
-                <div class="project-footer">
-                    <a href="https://sdg12-eng.github.io/SistemadeGestion/" target="_blank" class="btn-outline-tech">Ver Demo en Vivo <i class="fa-solid fa-satellite-dish"></i></a>
-                </div>
+            <div class="project-card">
+                <h3>📄 Gestión Integral</h3>
+                <p>Digitalización de documentos corporativos.</p>
+                <a href="#" style="color: var(--primary-neon);">Ver Demo</a>
             </div>
-            <div class="project-card reveal delay-3">
-                <div class="project-header"><i class="fa-solid fa-database"></i></div>
-                <div class="project-content">
-                    <h3>Sistema de Formularios Dinámicos</h3>
-                    <div class="tags"><span class="tag">Flexibilidad</span><span class="tag">Data Collection</span></div>
-                    <p>Herramienta adaptable para el registro de activos y recolección de datos estructurados sin modificar el código base.</p>
-                </div>
-                <div class="project-footer">
-                    <a href="https://sdg12-eng.github.io/archivos.com/" target="_blank" class="btn-outline-tech">Ver Demo en Vivo <i class="fa-solid fa-satellite-dish"></i></a>
-                </div>
-            </div>
-             <div class="project-card reveal delay-4">
-                <div class="project-header"><i class="fa-solid fa-cart-shopping"></i></div>
-                <div class="project-content">
-                    <h3>Sistema de Ventas (Vendors)</h3>
-                    <div class="tags"><span class="tag" style="border-color: var(--accent-purple); color: var(--accent-purple);">En Desarrollo</span><span class="tag">POS</span><span class="tag">Comercial</span></div>
-                    <p>Aplicación en construcción para el control de transacciones comerciales, facturación y registro de clientes.</p>
-                </div>
-                <div class="project-footer">
-                    <a href="https://github.com/SDG12-eng/Vendors" target="_blank" class="btn-outline-tech btn-dev">Ver Código en GitHub <i class="fa-brands fa-github"></i></a>
-                </div>
+            <div class="project-card">
+                <h3>🛒 Vendors POS</h3>
+                <p>Punto de venta y facturación.</p>
+                <a href="#" style="color: var(--primary-neon);">Ver Demo</a>
             </div>
         </div>
     </section>
 
     <section id="contact">
-        <div class="section-title reveal">
-            <h2>Iniciar Solicitud de Servicio</h2>
-            <p>Utiliza tu cuenta de Google para agilizar el proceso de contacto.</p>
+        <div class="section-title">
+            <h2>Contacto Inteligente</h2>
+            <p>Tus datos se enviarán directamente a mi base de datos.</p>
         </div>
-        <div class="contact-container">
-            <div class="contact-info reveal delay-1">
-                <div class="contact-item"><i class="fa-solid fa-phone-volume"></i><div><strong>Línea Directa</strong><p>6389-2022</p></div></div>
-                <div class="contact-item"><i class="fa-solid fa-at"></i><div><strong>Correo Principal</strong><p>emanuel.cedeno1234@gmail.com</p></div></div>
-                <div class="contact-item"><i class="fa-solid fa-inbox"></i><div><strong>Correo Secundario</strong><p>vendorssa2006@gmail.com</p></div></div>
-                <div class="contact-item"><i class="fa-solid fa-map-location-dot"></i><div><strong>Base de Operaciones</strong><p>Colón, Panamá</p></div></div>
-            </div>
-
-            <div class="form-box reveal delay-2">
-                <form id="contactForm">
-                    <div class="form-group"><label>Identificación / Nombre</label><input type="text" id="name" placeholder="Tu nombre completo" required></div>
-                    <div class="form-group"><label>Organización (Opcional)</label><input type="text" id="company" placeholder="Nombre de tu empresa"></div>
-                    <div class="form-group"><label>Correo de Contacto</label><input type="email" id="email" placeholder="nombre@ejemplo.com" required></div>
-                    <div class="form-group">
-                        <label>Tipo de Requerimiento</label>
-                        <select id="service">
-                            <option value="Sistema de Inventario">Sistema de Inventario Logístico</option>
-                            <option value="Desarrollo Web">Desarrollo Web a Medida</option>
-                            <option value="Sistema de Ventas">Sistema de Punto de Venta (POS)</option>
-                            <option value="Consultoría">Consultoría Técnica</option>
-                        </select>
-                    </div>
-                    <div class="form-group"><label>Detalles del Proyecto</label><textarea id="message" rows="4" placeholder="Describe brevemente tus necesidades..." required></textarea></div>
-                    <button type="submit" class="login-btn" style="width: 100%; justify-content: center;">Procesar Solicitud <i class="fa-solid fa-paper-plane"></i></button>
-                </form>
-            </div>
+        <div class="form-box">
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Tu correo" required>
+                </div>
+                <div class="form-group">
+                    <select id="service">
+                        <option value="Inventario">Sistema de Inventario</option>
+                        <option value="Web">Desarrollo Web</option>
+                        <option value="POS">Sistema de Ventas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" rows="4" placeholder="Mensaje..." required></textarea>
+                </div>
+                <button type="submit" class="login-btn" style="width: 100%; justify-content: center;">
+                    Enviar a Base de Datos <i class="fa-solid fa-cloud-arrow-up" style="margin-left:8px;"></i>
+                </button>
+            </form>
         </div>
     </section>
 
-    <footer><p class="reveal">© 2024 Emanuel Cedeño. Arquitectura de Sistemas & Desarrollo Web.</p></footer>
-
-    <script>document.addEventListener("DOMContentLoaded",function(){const e={threshold:.15,rootMargin:"0px 0px -50px 0px"},t=new IntersectionObserver(function(e,n){e.forEach(e=>{e.isIntersecting&&(e.target.classList.add("active"),n.unobserve(e.target))})},e);document.querySelectorAll(".reveal").forEach(e=>{t.observe(e)})});</script>
+    <footer>
+        <p>© 2024 Vendors S.A. - Desarrollado con Firebase</p>
+    </footer>
 
     <script type="module">
-        import{initializeApp as _0xI}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";import{getAuth as _0xA,signInWithPopup as _0xS,GoogleAuthProvider as _0xG,signOut as _0xO,onAuthStateChanged as _0xAC}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        // CONF
-        const _0xC={apiKey:"AIzaSyDS75-IATmc4vgELtbsAwyHyAfPLLWv0kI",authDomain:"portafolio-36b3a.firebaseapp.com",projectId:"portafolio-36b3a",storageBucket:"portafolio-36b3a.firebasestorage.app",messagingSenderId:"198114342515",appId:"1:198114342515:web:57a32c2a612155f7ae5c06"};
-        // APP
-        const _a=_0xI(_0xC),_au=_0xA(_a),_p=new _0xG;
-        // DOM
-        const _d=document,_lB=_d.getElementById("loginBtn"),_loB=_d.getElementById("logoutBtn"),_uP=_d.getElementById("userProfile"),_uA=_d.getElementById("userAvatar"),_nI=_d.getElementById("name"),_eI=_d.getElementById("email");
-        // LOGIC
-        _lB.addEventListener("click",()=>{_0xS(_au,_p).then(e=>{console.log("U:",e.user)}).catch(e=>{alert("Err:"+e.message)})});
-        _loB.addEventListener("click",()=>{_0xO(_au).then(()=>{_nI.value="",_eI.value=""})});
-        _0xAC(_au,e=>{e?(_lB.style.display="none",_uP.style.display="flex",_uA.src=e.photoURL,_nI.value=e.displayName,_eI.value=e.email):(_lB.style.display="flex",_uP.style.display="none")});
-        _d.getElementById("contactForm").addEventListener("submit",function(e){e.preventDefault();const n=_d.getElementById("name").value,c=_d.getElementById("company").value,m=_d.getElementById("email").value,s=_d.getElementById("service").value,ms=_d.getElementById("message").value,ed="emanuel.cedeno1234@gmail.com",sb=encodeURIComponent(`🔥 Solicitud: ${s} - ${n}`),bd=encodeURIComponent(`Hola Emanuel,\n\nSolicitud entrante:\n👤: ${n}\n📧: ${m}\n🏢: ${c}\n🛠: ${s}\n\n📝: ${ms}`);window.location.href=`mailto:${ed}?subject=${sb}&body=${bd}`});
-    </script>
+        // Importar TODO lo necesario de Firebase (Auth y Firestore)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, Timestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // Configuración (Tu API Key)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDS75-IATmc4vgELtbsAwyHyAfPLLWv0kI",
+            authDomain: "portafolio-36b3a.firebaseapp.com",
+            projectId: "portafolio-36b3a",
+            storageBucket: "portafolio-36b3a.firebasestorage.app",
+            messagingSenderId: "198114342515",
+            appId: "1:198114342515:web:57a32c2a612155f7ae5c06"
+        };
+
+        // Inicializar
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app); // Inicializamos la Base de Datos
+        const provider = new GoogleAuthProvider();
+
+        // Variables DOM
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userProfile = document.getElementById('userProfile');
+        const userAvatar = document.getElementById('userAvatar');
+        const adminPanel = document.getElementById('adminPanel');
+        const messagesContainer = document.getElementById('messagesContainer');
+        const msgCount = document.getElementById('msgCount');
+
+        // --- EMAIL DEL ADMINISTRADOR (PON EL TUYO AQUÍ EXACTO) ---
+        const ADMIN_EMAIL = "emanuel.cedeno1234@gmail.com"; 
+
+        // 1. Autenticación
+        loginBtn.addEventListener('click', () => signInWithPopup(auth, provider));
+        logoutBtn.addEventListener('click', () => signOut(auth));
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Usuario logueado
+                loginBtn.style.display = 'none';
+                userProfile.style.display = 'flex';
+                userAvatar.src = user.photoURL;
+                
+                // Autocompletar formulario si es cliente
+                document.getElementById('name').value = user.displayName;
+                document.getElementById('email').value = user.email;
+
+                // VERIFICAR SI ES ADMIN
+                if (user.email === ADMIN_EMAIL) {
+                    // Mostrar Panel Admin
+                    adminPanel.style.display = 'block';
+                    cargarMensajes(); // Iniciar escucha de la BD
+                } else {
+                    adminPanel.style.display = 'none';
+                }
+
+            } else {
+                // Sin sesión
+                loginBtn.style.display = 'flex';
+                userProfile.style.display = 'none';
+                adminPanel.style.display = 'none';
+            }
+        });
+
+        // 2. Enviar Formulario a Firestore (Cliente)
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+
+            try {
+                // Guardar documento en la colección "solicitudes"
+                await addDoc(collection(db, "solicitudes"), {
+                    nombre: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    servicio: document.getElementById('service').value,
+                    mensaje: document.getElementById('message').value,
+                    fecha: Timestamp.now() // Fecha del servidor
+                });
+
+                alert("✅ ¡Solicitud enviada! Nos pondremos en contacto.");
+                e.target.reset();
+
+            } catch (error) {
+                console.error("Error al guardar:", error);
+                alert("❌ Error al enviar. Intenta de nuevo.");
+            } finally {
+                btn.innerHTML = originalText;
+            }
+        });
+
+        // 3. Cargar Mensajes (Solo Admin)
+        function cargarMensajes() {
+            // Consulta: Dame la colección "solicitudes" ordenada por fecha (más reciente primero)
+            const q = query(collection(db, "solicitudes"), orderBy("fecha", "desc"));
+
+            // onSnapshot escucha cambios en tiempo real (si llega un mensaje nuevo, aparece solo)
+            onSnapshot(q, (snapshot) => {
+                messagesContainer.innerHTML = ''; // Limpiar
+                msgCount.innerText = snapshot.docs.length; // Contador
+
+                if(snapshot.empty) {
+                    messagesContainer.innerHTML = '<p style="color:gray;">No hay mensajes nuevos.</p>';
+                    return;
+                }
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    const fecha = data.fecha ? data.fecha.toDate().toLocaleString() : 'Sin fecha';
+
+                    // Crear tarjeta HTML para cada mensaje
+                    const card = document.createElement('div');
+                    card.className = 'message-card';
+                    card.innerHTML = `
+                        <div class="msg-meta">
+                            <span><i class="fa-regular fa-clock"></i> ${fecha}</span>
+                            <span style="color: var(--primary-neon);">${data.servicio}</span>
+                        </div>
+                        <h4 style="color:white; margin-bottom:5px;">${data.nombre}</h4>
+                        <p style="font-size:0.85rem; color:#94a3b8;">${data.email}</p>
+                        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:10px 0;">
+                        <div class="msg-body">"${data.mensaje}"</div>
+                        <div class="msg-actions">
+                            <a href="mailto:${data.email}?subject=Respuesta a solicitud: ${data.servicio}" class="btn-reply">
+                                <i class="fa-solid fa-reply"></i> Responder
+                            </a>
+                            <button onclick="borrarMensaje('${id}')" class="btn-delete">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(card);
+                });
+            });
+        }
+
+        // 4. Función global para borrar mensajes (necesaria para el onclick del HTML generado)
+        window.borrarMensaje = async (id) => {
+            if(confirm("¿Estás seguro de eliminar este mensaje?")) {
+                await deleteDoc(doc(db, "solicitudes", id));
+            }
+        }
+    </script>
 </body>
 </html>
