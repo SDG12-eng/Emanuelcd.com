@@ -4,76 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portafolio Inteligente | Emanuel Cedeño</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- ESTILOS BASE (Mismos del diseño anterior) --- */
+        /* --- VARIABLES & TEMA TECH --- */
         :root {
-            --primary-neon: #00f2fe; --secondary-neon: #4facfe; --accent-purple: #a855f7;
-            --bg-dark: #0a0e17; --bg-card: #131c2a; --bg-glass: rgba(19, 28, 42, 0.8);
-            --text-light: #e2e8f0; --text-dim: #94a3b8;
-            --success: #10b981; --danger: #ef4444;
+            --primary-neon: #00f2fe;    /* Cian Futuro */
+            --secondary-neon: #4facfe;  /* Azul Eléctrico */
+            --accent-purple: #a855f7;   /* Morado Acento */
+            --bg-dark: #0a0e17;         /* Fondo Profundo */
+            --bg-card: #131c2a;         /* Fondo Tarjetas */
+            --bg-glass: rgba(19, 28, 42, 0.85);
+            --text-light: #e2e8f0;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; overflow-x: hidden; }
+        body { background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
 
-        /* Animaciones */
+        /* --- ANIMACIONES (SCROLL REVEAL) --- */
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
-        /* Header */
-        header { background: var(--bg-glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 1rem 5%; position: fixed; width: 100%; top: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 700; background: linear-gradient(to right, var(--primary-neon), var(--secondary-neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        nav { display: flex; align-items: center; }
-        nav ul { display: flex; list-style: none; margin-right: 25px; }
+        /* --- HEADER & NAV --- */
+        header {
+            background: var(--bg-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { 
+            font-size: 1.5rem; font-weight: 700; letter-spacing: 1px;
+            background: linear-gradient(to right, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        nav ul { display: flex; list-style: none; margin-right: 20px; }
         nav ul li { margin-left: 25px; }
-        nav a { text-decoration: none; color: var(--text-light); transition: 0.3s; }
-        nav a:hover { color: var(--primary-neon); }
+        nav a { text-decoration: none; color: var(--text-light); font-weight: 500; transition: 0.3s; position: relative; }
+        nav a:hover { color: var(--primary-neon); text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
 
-        .login-btn { background: linear-gradient(135deg, var(--secondary-neon), var(--primary-neon)); color: var(--bg-dark); border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        /* --- UI ELEMENTS --- */
+        .btn-tech {
+            background: linear-gradient(135deg, var(--secondary-neon), var(--primary-neon));
+            color: var(--bg-dark); border: none; padding: 8px 20px; border-radius: 4px;
+            font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+        }
+        .btn-tech:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(0, 242, 254, 0.5); }
+        
+        .btn-outline {
+            border: 1px solid var(--primary-neon); color: var(--primary-neon); background: transparent;
+            padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; text-decoration: none;
+            transition: 0.3s; display: inline-block;
+        }
+        .btn-outline:hover { background: rgba(0, 242, 254, 0.1); box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+
         .user-profile { display: none; align-items: center; gap: 10px; }
         .user-avatar { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary-neon); }
-        .btn-outline-tech { border: 1px solid var(--secondary-neon); color: var(--secondary-neon); padding: 5px 15px; background: transparent; cursor: pointer; border-radius: 4px; }
 
-        /* Hero & Sections */
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #1a243a 0%, var(--bg-dark) 70%); }
-        .hero h1 { font-size: 3.5rem; background: linear-gradient(to right, #fff, var(--primary-neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        section { padding: 100px 10%; position: relative; }
-        .section-title h2 { font-size: 2.5rem; color: var(--text-light); }
-
-        /* --- NUEVO: ESTILOS PANEL ADMIN --- */
-        #adminPanel { 
+        /* --- PANEL ADMIN (MODO DIOS) --- */
+        #adminPanel {
             display: none; /* Oculto por defecto */
-            background: #111827; 
-            padding-top: 120px; 
-            border-bottom: 1px solid var(--primary-neon);
+            padding: 120px 10% 50px 10%;
+            background: #0f1219;
+            border-bottom: 2px solid var(--accent-purple);
+            animation: slideDown 0.5s ease-out;
         }
+        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
         .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .admin-badge { background: var(--accent-purple); color: white; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .admin-stats { font-size: 2.5rem; font-weight: bold; color: var(--primary-neon); text-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
         
         .messages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .message-card { 
-            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; position: relative; 
-            transition: 0.3s;
+        .msg-card {
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); padding: 20px;
+            border-radius: 10px; position: relative; transition: 0.3s;
         }
-        .message-card:hover { border-color: var(--primary-neon); }
-        .msg-meta { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 10px; display: flex; justify-content: space-between; }
-        .msg-body { color: var(--text-light); margin-bottom: 15px; font-size: 0.95rem; }
-        .msg-actions { display: flex; justify-content: flex-end; gap: 10px; }
-        .btn-delete { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-        .btn-reply { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 0.9rem; }
+        .msg-card:hover { border-color: var(--accent-purple); transform: translateY(-3px); }
+        .msg-badge { background: rgba(168, 85, 247, 0.2); color: var(--accent-purple); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; border: 1px solid rgba(168, 85, 247, 0.3); }
+        
+        /* --- SECCIONES PRINCIPALES --- */
+        section { padding: 80px 10%; }
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            background: radial-gradient(circle at center, #1a243a 0%, var(--bg-dark) 70%); position: relative;
+        }
+        .hero::before {
+            content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            background-image: linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px; pointer-events: none;
+        }
+        
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        .section-title span { color: var(--primary-neon); }
 
-        /* Projects & Forms (Mismos estilos previos) */
-        .skills-grid, .portfolio-grid { display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-        .skill-card, .project-card { background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center; }
-        .form-box { background: var(--bg-card); padding: 40px; border-radius: 15px; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 6px; margin-bottom: 15px; }
-        .btn-glow { background: transparent; color: var(--primary-neon); padding: 10px 30px; border: 2px solid var(--primary-neon); text-decoration: none; border-radius: 4px; }
+        /* --- CARDS & PROYECTOS --- */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card {
+            background: var(--bg-card); padding: 30px; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.4s;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary-neon); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
+        .card i { font-size: 2.5rem; color: var(--primary-neon); margin-bottom: 20px; }
+        
+        .tag { display: inline-block; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; margin: 5px 5px 5px 0; color: var(--text-dim); }
 
-        @media (max-width: 768px) { nav ul { display: none; } }
+        /* --- CONTACTO --- */
+        .form-container { background: var(--bg-card); padding: 40px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); max-width: 600px; margin: 0 auto; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; color: var(--text-dim); font-size: 0.9rem; }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1);
+            color: white; border-radius: 6px; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus, .input-group textarea:focus { border-color: var(--primary-neon); background: rgba(0, 242, 254, 0.05); }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; color: var(--text-dim); }
+
+        @media (max-width: 768px) { nav ul { display: none; } .hero h1 { font-size: 2rem; } }
     </style>
 </head>
 <body>
@@ -83,105 +137,162 @@
         <nav>
             <ul>
                 <li><a href="#about">Perfil</a></li>
-                <li><a href="#projects">Proyectos</a></li>
+                <li><a href="#skills">Stack</a></li>
+                <li><a href="#projects">Portafolio</a></li>
                 <li><a href="#contact">Contacto</a></li>
             </ul>
+            
             <div>
-                <button id="loginBtn" class="login-btn"><i class="fa-brands fa-google"></i> Acceder</button>
+                <button id="loginBtn" class="btn-tech"><i class="fa-brands fa-google"></i> Acceder</button>
                 <div id="userProfile" class="user-profile">
-                    <img id="userAvatar" src="" class="user-avatar">
-                    <button id="logoutBtn" class="btn-outline-tech">Salir</button>
+                    <img id="userAvatar" src="" alt="User" class="user-avatar">
+                    <button id="logoutBtn" class="btn-outline" style="padding: 5px 10px; font-size: 0.8rem;">Salir</button>
                 </div>
             </div>
         </nav>
     </header>
 
-    <section id="adminPanel">
+    <div id="adminPanel">
         <div class="admin-header">
             <div>
-                <h2 style="font-size: 1.8rem; display: flex; align-items: center; gap: 10px;">
-                    <i class="fa-solid fa-user-shield" style="color: var(--accent-purple);"></i> Panel Admin
-                    <span class="admin-badge">Modo Dios Activado</span>
-                </h2>
+                <h2 style="color: white;"><i class="fa-solid fa-server"></i> Centro de Comando</h2>
                 <p style="color: var(--text-dim);">Gestión de solicitudes en tiempo real</p>
             </div>
-            <div id="msgCount" style="font-size: 2rem; font-weight: bold; color: var(--primary-neon);">0</div>
+            <div class="admin-stats" id="msgCount">0</div>
         </div>
         <div id="messagesContainer" class="messages-grid">
-            <p>Cargando solicitudes...</p>
+            <p style="color: gray;">Esperando conexión con la base de datos...</p>
+        </div>
+    </div>
+
+    <section id="about" class="hero">
+        <h1 class="reveal">Emanuel Cedeño</h1>
+        <p class="reveal delay-1" style="font-size: 1.2rem; color: var(--text-dim); margin: 15px 0 30px;">
+            Arquitecto de Sistemas & Desarrollador Fullstack <br> Especializado en Logística y Automatización.
+        </p>
+        <div class="reveal delay-2">
+            <a href="#projects" class="btn-outline">Ver Proyectos <i class="fa-solid fa-arrow-down"></i></a>
         </div>
     </section>
 
-    <section class="hero" id="about">
-        <h1>Emanuel Cedeño</h1>
-        <p style="color: #94a3b8; margin: 15px 0 30px;">Arquitecto de Sistemas & Desarrollador Fullstack</p>
-        <a href="#contact" class="btn-glow">Cotizar Proyecto</a>
+    <section id="skills">
+        <div class="section-title reveal">
+            <h2>Tech <span>Stack</span></h2>
+        </div>
+        <div class="grid-container">
+            <div class="card reveal delay-1">
+                <i class="fa-brands fa-js"></i>
+                <h3>Frontend Core</h3>
+                <p style="color: var(--text-dim);">Javascript (ES6+), HTML5 Semántico, CSS3 Modular.</p>
+            </div>
+            <div class="card reveal delay-2">
+                <i class="fa-solid fa-database"></i>
+                <h3>Backend Cloud</h3>
+                <p style="color: var(--text-dim);">Google Firebase, Firestore NoSQL, Cloud Functions.</p>
+            </div>
+            <div class="card reveal delay-3">
+                <i class="fa-solid fa-layer-group"></i>
+                <h3>Herramientas</h3>
+                <p style="color: var(--text-dim);">Git, GitHub Pages, Cloudinary API, Auth Systems.</p>
+            </div>
+        </div>
     </section>
 
-    <section id="projects">
-        <div class="section-title">
-            <h2>Portafolio</h2>
+    <section id="projects" style="background: #0d1117;">
+        <div class="section-title reveal">
+            <h2>Proyectos <span>Destacados</span></h2>
         </div>
-        <div class="portfolio-grid">
-            <div class="project-card">
-                <h3>📦 FCI Log System</h3>
-                <p>Gestión de inventarios en tiempo real.</p>
-                <a href="#" style="color: var(--primary-neon);">Ver Demo</a>
+        <div class="grid-container">
+            <div class="card reveal delay-1">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                <h3>Inventario FCI Log</h3>
+                <div style="margin-bottom: 15px;">
+                    <span class="tag">Logística</span> <span class="tag">Realtime</span>
+                </div>
+                <p style="margin-bottom: 20px; color: var(--text-dim);">Sistema de control de stock con roles (Admin/User), aprobaciones y dashboard en vivo.</p>
+                <a href="https://sdg12-eng.github.io/Inventario.com/" target="_blank" class="btn-outline" style="width:100%; text-align:center;">Ver Demo</a>
             </div>
-            <div class="project-card">
-                <h3>📄 Gestión Integral</h3>
-                <p>Digitalización de documentos corporativos.</p>
-                <a href="#" style="color: var(--primary-neon);">Ver Demo</a>
+            <div class="card reveal delay-2">
+                <i class="fa-solid fa-file-contract"></i>
+                <h3>Gestión Integral</h3>
+                <div style="margin-bottom: 15px;">
+                    <span class="tag">Admin</span> <span class="tag">Docs</span>
+                </div>
+                <p style="margin-bottom: 20px; color: var(--text-dim);">Centralización de documentos corporativos, trazabilidad de trámites y seguridad.</p>
+                <a href="https://sdg12-eng.github.io/SistemadeGestion/" target="_blank" class="btn-outline" style="width:100%; text-align:center;">Ver Demo</a>
             </div>
-            <div class="project-card">
-                <h3>🛒 Vendors POS</h3>
-                <p>Punto de venta y facturación.</p>
-                <a href="#" style="color: var(--primary-neon);">Ver Demo</a>
+            <div class="card reveal delay-3">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <h3>Vendors POS</h3>
+                <div style="margin-bottom: 15px;">
+                    <span class="tag" style="border-color: var(--accent-purple); color: var(--accent-purple);">En Desarrollo</span>
+                </div>
+                <p style="margin-bottom: 20px; color: var(--text-dim);">Punto de venta moderno, facturación y gestión de clientes. Código abierto.</p>
+                <a href="https://github.com/SDG12-eng/Vendors" target="_blank" class="btn-outline" style="width:100%; text-align:center;">Ver GitHub</a>
             </div>
         </div>
     </section>
 
     <section id="contact">
-        <div class="section-title">
-            <h2>Contacto Inteligente</h2>
-            <p>Tus datos se enviarán directamente a mi base de datos.</p>
+        <div class="section-title reveal">
+            <h2>Iniciar <span>Proyecto</span></h2>
+            <p style="color: var(--text-dim);">Tus datos se guardarán de forma segura en mi base de datos.</p>
         </div>
-        <div class="form-box">
+        
+        <div class="form-container reveal delay-1">
             <form id="contactForm">
-                <div class="form-group">
-                    <input type="text" id="name" placeholder="Tu nombre" required>
+                <div class="input-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="name" placeholder="Ej: Juan Pérez" required>
                 </div>
-                <div class="form-group">
-                    <input type="email" id="email" placeholder="Tu correo" required>
+                <div class="input-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="email" placeholder="juan@empresa.com" required>
                 </div>
-                <div class="form-group">
+                <div class="input-group">
+                    <label>Tipo de Servicio</label>
                     <select id="service">
-                        <option value="Inventario">Sistema de Inventario</option>
-                        <option value="Web">Desarrollo Web</option>
-                        <option value="POS">Sistema de Ventas</option>
+                        <option value="Sistema de Inventario">Sistema de Inventario</option>
+                        <option value="Desarrollo Web">Desarrollo Web a Medida</option>
+                        <option value="Sistema POS">Sistema de Ventas (POS)</option>
+                        <option value="Consultoría">Consultoría Técnica</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <textarea id="message" rows="4" placeholder="Mensaje..." required></textarea>
+                <div class="input-group">
+                    <label>Detalles del Requerimiento</label>
+                    <textarea id="message" rows="4" placeholder="Describe brevemente lo que necesitas..." required></textarea>
                 </div>
-                <button type="submit" class="login-btn" style="width: 100%; justify-content: center;">
-                    Enviar a Base de Datos <i class="fa-solid fa-cloud-arrow-up" style="margin-left:8px;"></i>
+                <button type="submit" class="btn-tech" style="width: 100%; justify-content: center;">
+                    Enviar Solicitud <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </form>
         </div>
     </section>
 
     <footer>
-        <p>© 2024 Vendors S.A. - Desarrollado con Firebase</p>
+        <p>© 2024 Vendors S.A. | Tecnología desde Colón, Panamá 🇵🇦</p>
     </footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+
     <script type="module">
-        // Importar TODO lo necesario de Firebase (Auth y Firestore)
+        // Importaciones Oficiales de Firebase v10
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, Timestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Configuración (Tu API Key)
+        // Configuración API (Tu Proyecto)
         const firebaseConfig = {
             apiKey: "AIzaSyDS75-IATmc4vgELtbsAwyHyAfPLLWv0kI",
             authDomain: "portafolio-36b3a.firebaseapp.com",
@@ -191,13 +302,13 @@
             appId: "1:198114342515:web:57a32c2a612155f7ae5c06"
         };
 
-        // Inicializar
+        // Inicialización
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app); // Inicializamos la Base de Datos
+        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // Variables DOM
+        // Referencias DOM
         const loginBtn = document.getElementById('loginBtn');
         const logoutBtn = document.getElementById('logoutBtn');
         const userProfile = document.getElementById('userProfile');
@@ -206,108 +317,104 @@
         const messagesContainer = document.getElementById('messagesContainer');
         const msgCount = document.getElementById('msgCount');
 
-        // --- EMAIL DEL ADMINISTRADOR (PON EL TUYO AQUÍ EXACTO) ---
-        const ADMIN_EMAIL = "emanuel.cedeno1234@gmail.com"; 
+        // --- EMAIL DEL ADMINISTRADOR (TÚ) ---
+        const ADMIN_EMAIL = "emanuel.cedeno1234@gmail.com";
 
-        // 1. Autenticación
-        loginBtn.addEventListener('click', () => signInWithPopup(auth, provider));
+        // 1. Lógica de Autenticación
+        loginBtn.addEventListener('click', () => signInWithPopup(auth, provider).catch(e => alert(e.message)));
         logoutBtn.addEventListener('click', () => signOut(auth));
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // Usuario logueado
+                // UI Logueado
                 loginBtn.style.display = 'none';
                 userProfile.style.display = 'flex';
                 userAvatar.src = user.photoURL;
                 
-                // Autocompletar formulario si es cliente
+                // Autocompletar Formulario
                 document.getElementById('name').value = user.displayName;
                 document.getElementById('email').value = user.email;
 
-                // VERIFICAR SI ES ADMIN
+                // Chequeo de ADMIN
                 if (user.email === ADMIN_EMAIL) {
-                    // Mostrar Panel Admin
                     adminPanel.style.display = 'block';
-                    cargarMensajes(); // Iniciar escucha de la BD
+                    activarModoDios();
                 } else {
                     adminPanel.style.display = 'none';
                 }
-
             } else {
-                // Sin sesión
+                // UI No Logueado
                 loginBtn.style.display = 'flex';
                 userProfile.style.display = 'none';
                 adminPanel.style.display = 'none';
             }
         });
 
-        // 2. Enviar Formulario a Firestore (Cliente)
+        // 2. Envío de Formulario (Cliente -> Firestore)
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const btn = e.target.querySelector('button');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+            
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
+            btn.disabled = true;
 
             try {
-                // Guardar documento en la colección "solicitudes"
                 await addDoc(collection(db, "solicitudes"), {
                     nombre: document.getElementById('name').value,
                     email: document.getElementById('email').value,
                     servicio: document.getElementById('service').value,
                     mensaje: document.getElementById('message').value,
-                    fecha: Timestamp.now() // Fecha del servidor
+                    fecha: Timestamp.now()
                 });
-
-                alert("✅ ¡Solicitud enviada! Nos pondremos en contacto.");
+                alert("✅ ¡Solicitud Enviada Exitosamente!");
                 e.target.reset();
-
             } catch (error) {
-                console.error("Error al guardar:", error);
-                alert("❌ Error al enviar. Intenta de nuevo.");
+                console.error(error);
+                alert("❌ Error al enviar. Intenta nuevamente.");
             } finally {
                 btn.innerHTML = originalText;
+                btn.disabled = false;
             }
         });
 
-        // 3. Cargar Mensajes (Solo Admin)
-        function cargarMensajes() {
-            // Consulta: Dame la colección "solicitudes" ordenada por fecha (más reciente primero)
+        // 3. Modo Dios: Escuchar Mensajes en Tiempo Real
+        function activarModoDios() {
             const q = query(collection(db, "solicitudes"), orderBy("fecha", "desc"));
-
-            // onSnapshot escucha cambios en tiempo real (si llega un mensaje nuevo, aparece solo)
+            
             onSnapshot(q, (snapshot) => {
-                messagesContainer.innerHTML = ''; // Limpiar
-                msgCount.innerText = snapshot.docs.length; // Contador
+                messagesContainer.innerHTML = '';
+                msgCount.innerText = snapshot.docs.length;
 
-                if(snapshot.empty) {
-                    messagesContainer.innerHTML = '<p style="color:gray;">No hay mensajes nuevos.</p>';
+                if (snapshot.empty) {
+                    messagesContainer.innerHTML = '<p style="color:gray;">No hay solicitudes pendientes.</p>';
                     return;
                 }
 
-                snapshot.forEach((docSnap) => {
+                snapshot.forEach(docSnap => {
                     const data = docSnap.data();
-                    const id = docSnap.id;
-                    const fecha = data.fecha ? data.fecha.toDate().toLocaleString() : 'Sin fecha';
-
-                    // Crear tarjeta HTML para cada mensaje
+                    const fecha = data.fecha ? data.fecha.toDate().toLocaleString() : 'Reciente';
+                    
                     const card = document.createElement('div');
-                    card.className = 'message-card';
+                    card.className = 'msg-card';
                     card.innerHTML = `
-                        <div class="msg-meta">
-                            <span><i class="fa-regular fa-clock"></i> ${fecha}</span>
-                            <span style="color: var(--primary-neon);">${data.servicio}</span>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                            <span class="msg-badge">${data.servicio}</span>
+                            <small style="color:gray; font-size:0.7rem;">${fecha}</small>
                         </div>
                         <h4 style="color:white; margin-bottom:5px;">${data.nombre}</h4>
-                        <p style="font-size:0.85rem; color:#94a3b8;">${data.email}</p>
-                        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:10px 0;">
-                        <div class="msg-body">"${data.mensaje}"</div>
-                        <div class="msg-actions">
-                            <a href="mailto:${data.email}?subject=Respuesta a solicitud: ${data.servicio}" class="btn-reply">
-                                <i class="fa-solid fa-reply"></i> Responder
+                        <div style="color: var(--primary-neon); font-size:0.9rem; margin-bottom:10px;">${data.email}</div>
+                        <p style="color: var(--text-dim); font-size:0.9rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:10px;">
+                            "${data.mensaje}"
+                        </p>
+                        <div style="margin-top:15px; display:flex; gap:10px; justify-content:flex-end;">
+                            <a href="mailto:${data.email}?subject=Respuesta a: ${data.servicio}&body=Hola ${data.nombre}, recibí tu solicitud..." 
+                               class="btn-outline" style="font-size:0.8rem; padding:5px 10px; border-color:var(--success); color:var(--success);">
+                               <i class="fa-solid fa-reply"></i> Responder
                             </a>
-                            <button onclick="borrarMensaje('${id}')" class="btn-delete">
-                                <i class="fa-solid fa-trash"></i>
+                            <button onclick="window.borrarMsg('${docSnap.id}')" 
+                               class="btn-outline" style="font-size:0.8rem; padding:5px 10px; border-color:var(--danger); color:var(--danger);">
+                               <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
                     `;
@@ -316,12 +423,16 @@
             });
         }
 
-        // 4. Función global para borrar mensajes (necesaria para el onclick del HTML generado)
-        window.borrarMensaje = async (id) => {
-            if(confirm("¿Estás seguro de eliminar este mensaje?")) {
-                await deleteDoc(doc(db, "solicitudes", id));
+        // 4. Función Global para Borrar (Necesaria para onclick en HTML inyectado)
+        window.borrarMsg = async (id) => {
+            if(confirm("¿Eliminar esta solicitud permanentemente?")) {
+                try {
+                    await deleteDoc(doc(db, "solicitudes", id));
+                } catch(e) {
+                    alert("Error al borrar: " + e.message);
+                }
             }
-        }
+        };
     </script>
 </body>
 </html>
