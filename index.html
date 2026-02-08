@@ -3,158 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendors S.A. | Futuro Digital</title>
+    <title>Vendors S.A. | Ecosistema Digital</title>
+    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💠</text></svg>">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         /* --- 1. VARIABLES & RESET --- */
         :root {
-            --bg-main: #050505;
-            --bg-glass: rgba(20, 20, 20, 0.7);
-            --neon-blue: #2de2e6;
-            --neon-purple: #9700cc;
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --card-border: rgba(255, 255, 255, 0.1);
+            --bg-dark: #05050a;
+            --bg-panel: #0f1219;
+            --neon-cyan: #00f3ff;
+            --neon-purple: #bc13fe;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
 
-        /* --- 2. INTERFAZ Y COMPONENTES --- */
-        
-        /* Notificaciones TOAST (Reemplazo de Alerts) */
-        #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        /* --- 2. UI COMPONENTS (Toast & Buttons) --- */
+        #toast-box { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
         .toast {
-            background: rgba(10, 10, 10, 0.9); border-left: 4px solid var(--neon-blue);
-            color: white; padding: 15px 25px; border-radius: 4px; min-width: 250px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
-            animation: slideIn 0.3s ease-out; display: flex; align-items: center; gap: 10px;
+            background: rgba(15, 20, 30, 0.95); border-left: 4px solid var(--neon-cyan);
+            color: white; padding: 15px 20px; border-radius: 4px; min-width: 280px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+            animation: slideInRight 0.3s ease; display: flex; align-items: center; gap: 12px;
         }
-        .toast.error { border-color: #ff3333; }
-        .toast.success { border-color: #00ff00; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .toast.error { border-color: #ff3366; }
+        .toast.success { border-color: #00ff88; }
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        /* Header */
-        header {
-            position: fixed; top: 0; width: 100%; padding: 20px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--bg-glass); backdrop-filter: blur(10px);
-            z-index: 1000; border-bottom: 1px solid var(--card-border);
-        }
-        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; }
-        .logo span { color: var(--neon-blue); }
-
-        /* Botones */
         .btn {
-            padding: 10px 25px; border: none; border-radius: 50px; cursor: pointer;
-            font-weight: 700; transition: 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 24px; border-radius: 50px; border: none; font-weight: 600;
+            cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
         }
-        .btn-primary { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px rgba(45, 226, 230, 0.3); }
-        .btn-primary:hover { box-shadow: 0 0 25px rgba(45, 226, 230, 0.6); transform: scale(1.05); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+            color: white; box-shadow: 0 0 20px rgba(188, 19, 254, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(0, 243, 255, 0.5); }
         
-        /* Hero Section */
+        .btn-outline {
+            background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan);
+        }
+        .btn-outline:hover { background: rgba(0, 243, 255, 0.1); }
+
+        /* --- 3. LAYOUT --- */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 15px 5%; z-index: 1000;
+            background: rgba(5, 5, 10, 0.8); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; color: white; }
+        .logo span { color: var(--neon-cyan); }
+
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav a { text-decoration: none; color: var(--text-muted); transition: 0.3s; font-size: 0.9rem; }
+        nav a:hover { color: var(--neon-cyan); }
+
+        /* --- 4. SECCIONES --- */
+        section { padding: 100px 8%; }
+        
         .hero {
             height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #000 70%);
-            padding: 20px;
+            text-align: center; background: radial-gradient(circle at 50% 50%, #1a1a3a 0%, var(--bg-dark) 70%);
         }
-        .hero h1 { font-size: 4rem; margin-bottom: 20px; line-height: 1.1; }
-        .gradient-text {
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .hero h1 {
+            font-size: 4rem; line-height: 1.1; margin-bottom: 20px;
+            background: linear-gradient(to right, white, var(--neon-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        /* --- 3. PANEL DE ADMINISTRADOR (MODO DIOS) --- */
-        #adminOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 2000;
-            display: none; /* Oculto por defecto */
-            flex-direction: column; padding: 40px; overflow-y: auto;
-        }
-        .admin-nav { display: flex; justify-content: space-between; margin-bottom: 40px; border-bottom: 1px solid var(--neon-purple); padding-bottom: 20px; }
-        .msg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .msg-card {
-            background: #111; border: 1px solid var(--card-border); padding: 20px; border-radius: 8px;
-            position: relative; transition: 0.3s;
-        }
-        .msg-card:hover { border-color: var(--neon-purple); }
         
-        /* --- 4. FORMULARIO FLOTANTE --- */
-        .contact-section { padding: 100px 10%; }
-        .glass-form {
-            background: rgba(255,255,255,0.03); padding: 40px; border-radius: 20px;
-            border: 1px solid var(--card-border); max-width: 600px; margin: 0 auto;
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .card {
+            background: var(--bg-panel); border: 1px solid var(--border); padding: 30px; border-radius: 16px;
+            transition: 0.3s; position: relative; overflow: hidden;
         }
-        .input-box { margin-bottom: 20px; position: relative; }
-        .input-box input, .input-box select, .input-box textarea {
-            width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border);
-            color: white; border-radius: 8px; outline: none; transition: 0.3s;
+        .card:hover { border-color: var(--neon-purple); transform: translateY(-5px); }
+        .card h3 { margin-bottom: 10px; color: white; }
+        .tag { font-size: 0.75rem; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 20px; color: var(--neon-cyan); }
+
+        /* --- 5. FORMULARIO CONTACTO --- */
+        .form-wrapper {
+            background: var(--bg-panel); padding: 40px; border-radius: 20px; border: 1px solid var(--border);
+            max-width: 600px; margin: 0 auto;
         }
-        .input-box input:focus, .input-box textarea:focus { border-color: var(--neon-blue); }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem; }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+            color: white; border-radius: 8px; outline: none; transition: 0.3s; font-family: 'Outfit', sans-serif;
+        }
+        .input-group input:focus { border-color: var(--neon-cyan); }
+
+        /* --- 6. PANEL ADMIN (HUD) --- */
+        #adminOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000;
+            background: rgba(5, 5, 10, 0.98); display: none; flex-direction: column;
+            padding: 80px 10%; overflow-y: auto;
+        }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--neon-purple); padding-bottom: 20px; margin-bottom: 30px; }
 
         /* Responsive */
-        @media(max-width:768px){ .hero h1{font-size: 2.5rem;} header{padding: 15px 20px;} }
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="toast-container"></div>
+    <div id="toast-box"></div>
 
     <div id="adminOverlay">
-        <div class="admin-nav">
-            <h2 class="gradient-text"><i class="fa-solid fa-database"></i> BASE DE DATOS</h2>
-            <button onclick="cerrarAdmin()" class="btn" style="border: 1px solid white; color: white;">Cerrar Panel</button>
+        <div class="admin-header">
+            <div>
+                <h2 style="color:white;"><i class="fa-solid fa-shield-halved" style="color:var(--neon-purple)"></i> MODO DIOS</h2>
+                <p style="color:var(--text-muted)">Centro de Control de Solicitudes</p>
+            </div>
+            <button onclick="toggleAdmin(false)" class="btn btn-outline">Cerrar Panel</button>
         </div>
-        <div id="msgContainer" class="msg-grid">
-            <p>Conectando con Firestore...</p>
+        <div id="msgContainer" class="grid">
+            <p style="color:gray">Conectando con el satélite...</p>
         </div>
     </div>
 
     <header>
         <div class="logo">VENDORS<span>.SA</span></div>
-        <div id="authContainer">
-            <button id="loginBtn" class="btn btn-primary"><i class="fa-brands fa-google"></i> Acceder</button>
+        <nav>
+            <ul>
+                <li><a href="#about">Inicio</a></li>
+                <li><a href="#projects">Portafolio</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <button id="loginBtn" class="btn btn-primary" style="font-size:0.9rem; padding: 8px 16px;">
+                <i class="fa-brands fa-google"></i> Acceso
+            </button>
             <div id="userProfile" style="display:none; align-items:center; gap:10px;">
-                <img id="userImg" src="" style="width:35px; height:35px; border-radius:50%; border:2px solid var(--neon-blue);">
-                <button id="adminBtn" class="btn" style="background:var(--neon-purple); color:white; font-size:0.8rem; padding:5px 15px; display:none;">ADMIN</button>
+                <img id="userAvatar" src="" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--neon-cyan);">
+                <button id="adminBtn" class="btn" style="display:none; background:var(--neon-purple); color:white; font-size:0.7rem; padding: 4px 10px;">ADMIN</button>
+                <button id="logoutBtn" class="btn btn-outline" style="font-size:0.7rem; padding: 4px 10px;">Salir</button>
             </div>
         </div>
     </header>
 
-    <section class="hero">
-        <h1>TECNOLOGÍA <br><span class="gradient-text">INTELIGENTE</span></h1>
-        <p style="color:var(--text-muted); max-width: 600px; margin: 20px 0;">
-            Desarrollamos ecosistemas digitales. Desde inventarios en tiempo real hasta sistemas POS avanzados.
+    <section id="about" class="hero">
+        <h1>FUTURO <br> DIGITAL</h1>
+        <p style="color:var(--text-muted); max-width:600px; margin-bottom:30px;">
+            Arquitectura de software escalable. Desde sistemas de inventario logístico hasta puntos de venta inteligentes.
         </p>
-        <a href="#contact" class="btn btn-primary">Iniciar Proyecto</a>
+        <div style="display:flex; gap:15px;">
+            <a href="#contact" class="btn btn-primary">Iniciar Proyecto</a>
+            <a href="#projects" class="btn btn-outline">Ver Demos</a>
+        </div>
     </section>
 
-    <section id="contact" class="contact-section">
-        <h2 style="text-align: center; margin-bottom: 40px;">SOLICITUD DE SERVICIO</h2>
-        <div class="glass-form">
+    <section id="projects">
+        <h2 style="text-align:center; font-size:2.5rem; margin-bottom:50px;">PORTAFOLIO <span style="color:var(--neon-cyan)">LIVE</span></h2>
+        <div class="grid">
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:start;">
+                    <i class="fa-solid fa-boxes-stacked" style="font-size:2rem; color:var(--neon-cyan);"></i>
+                    <span class="tag">Logística</span>
+                </div>
+                <h3 style="margin-top:20px;">Inventario FCI Log</h3>
+                <p style="color:var(--text-muted); margin-bottom:20px;">Control de stock en tiempo real con sistema de roles y aprobaciones.</p>
+                <a href="https://sdg12-eng.github.io/Inventario.com/" target="_blank" class="btn btn-outline" style="width:100%; justify-content:center;">Ver Demo</a>
+            </div>
+
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:start;">
+                    <i class="fa-solid fa-file-contract" style="font-size:2rem; color:var(--neon-purple);"></i>
+                    <span class="tag">Admin</span>
+                </div>
+                <h3 style="margin-top:20px;">Gestión Integral</h3>
+                <p style="color:var(--text-muted); margin-bottom:20px;">Centralización documental y trazabilidad de procesos administrativos.</p>
+                <a href="https://sdg12-eng.github.io/SistemadeGestion/" target="_blank" class="btn btn-outline" style="width:100%; justify-content:center;">Ver Demo</a>
+            </div>
+
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:start;">
+                    <i class="fa-solid fa-cart-shopping" style="font-size:2rem; color:white;"></i>
+                    <span class="tag" style="border-color:var(--neon-purple); color:var(--neon-purple)">En Desarrollo</span>
+                </div>
+                <h3 style="margin-top:20px;">Vendors POS</h3>
+                <p style="color:var(--text-muted); margin-bottom:20px;">Punto de venta moderno, facturación y CRM de clientes.</p>
+                <a href="https://github.com/SDG12-eng/Vendors" target="_blank" class="btn btn-outline" style="width:100%; justify-content:center;">Ver Código</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 style="text-align:center; margin-bottom:10px;">SOLICITAR SERVICIO</h2>
+        <p style="text-align:center; color:var(--text-muted); margin-bottom:50px;">Tus datos se enviarán cifrados a nuestra base de datos.</p>
+        
+        <div class="form-wrapper">
             <form id="contactForm">
-                <div class="input-box">
-                    <input type="text" id="name" placeholder="Nombre Completo" required>
+                <div class="input-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="name" required>
                 </div>
-                <div class="input-box">
-                    <input type="email" id="email" placeholder="Correo Electrónico" required>
+                <div class="input-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="email" required>
                 </div>
-                <div class="input-box">
+                <div class="input-group">
+                    <label>Servicio Requerido</label>
                     <select id="service">
-                        <option value="Inventario">Sistema de Inventario (FCI Log)</option>
+                        <option value="Inventario">Sistema de Inventario</option>
                         <option value="Web">Desarrollo Web</option>
                         <option value="POS">Sistema de Ventas</option>
+                        <option value="Consultoria">Consultoría</option>
                     </select>
                 </div>
-                <div class="input-box">
-                    <textarea id="message" rows="4" placeholder="Describe tu proyecto..." required></textarea>
+                <div class="input-group">
+                    <label>Detalles</label>
+                    <textarea id="message" rows="4" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                    ENVIAR DATOS <i class="fa-solid fa-paper-plane"></i>
+                <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+                    Confirmar Solicitud <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </form>
         </div>
@@ -162,10 +235,10 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, Timestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Configuración
+        // CONFIG (NO TOCAR)
         const firebaseConfig = {
             apiKey: "AIzaSyDS75-IATmc4vgELtbsAwyHyAfPLLWv0kI",
             authDomain: "portafolio-36b3a.firebaseapp.com",
@@ -175,78 +248,105 @@
             appId: "1:198114342515:web:57a32c2a612155f7ae5c06"
         };
 
-        // Init
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
         
-        // --- TU CORREO DE ADMIN ---
+        // --- ADMIN EMAIL ---
         const ADMIN_EMAIL = "emanuel.cedeno1234@gmail.com";
 
-        // DOM Elements
+        // DOM UI
         const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
         const userProfile = document.getElementById('userProfile');
         const adminBtn = document.getElementById('adminBtn');
         const adminOverlay = document.getElementById('adminOverlay');
 
-        // 1. SISTEMA DE NOTIFICACIONES (TOAST)
+        // TOAST SYSTEM
         window.showToast = (msg, type = 'neutral') => {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            let icon = type === 'success' ? '<i class="fa-solid fa-check-circle"></i>' : 
-                       type === 'error' ? '<i class="fa-solid fa-circle-exclamation"></i>' : 
-                       '<i class="fa-solid fa-info-circle"></i>';
-            
-            toast.innerHTML = `${icon} <span>${msg}</span>`;
-            container.appendChild(toast);
-            
-            // Sonido sutil (opcional)
-            // const audio = new Audio('path/to/sound.mp3'); audio.play();
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
+            const box = document.getElementById('toast-box');
+            const el = document.createElement('div');
+            el.className = `toast ${type}`;
+            el.innerHTML = type === 'success' ? `<i class="fa-solid fa-check"></i> ${msg}` : 
+                           type === 'error' ? `<i class="fa-solid fa-triangle-exclamation"></i> ${msg}` : msg;
+            box.appendChild(el);
+            setTimeout(() => { el.style.opacity='0'; setTimeout(()=>el.remove(),300); }, 4000);
         };
 
-        // 2. AUTENTICACIÓN
+        // AUTHENTICATION
         loginBtn.addEventListener('click', () => {
             signInWithPopup(auth, provider)
-                .then(res => showToast(`Bienvenido, ${res.user.displayName}`, 'success'))
-                .catch(err => showToast(`Error Login: ${err.message}`, 'error'));
+                .then(res => showToast(`Hola, ${res.user.displayName}`, 'success'))
+                .catch(err => showToast(err.message, 'error'));
         });
+
+        logoutBtn.addEventListener('click', () => signOut(auth).then(()=>window.location.reload()));
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 loginBtn.style.display = 'none';
                 userProfile.style.display = 'flex';
-                document.getElementById('userImg').src = user.photoURL;
+                document.getElementById('userAvatar').src = user.photoURL;
                 
-                // Autocompletar form
+                // Auto-fill
                 document.getElementById('name').value = user.displayName;
                 document.getElementById('email').value = user.email;
 
-                // Verificar Admin
+                // Check Admin
                 if(user.email === ADMIN_EMAIL){
                     adminBtn.style.display = 'block';
-                    adminBtn.onclick = () => {
-                        adminOverlay.style.display = 'flex';
-                        cargarMensajes();
-                    };
+                    adminBtn.onclick = () => toggleAdmin(true);
                 }
             }
         });
 
-        window.cerrarAdmin = () => adminOverlay.style.display = 'none';
+        // ADMIN PANEL LOGIC
+        window.toggleAdmin = (show) => {
+            adminOverlay.style.display = show ? 'flex' : 'none';
+            if(show) cargarMensajes();
+        }
 
-        // 3. ENVIAR FORMULARIO (MANEJO DE ERRORES MEJORADO)
+        function cargarMensajes() {
+            const container = document.getElementById('msgContainer');
+            const q = query(collection(db, "solicitudes"), orderBy("fecha", "desc"));
+            
+            onSnapshot(q, (snap) => {
+                container.innerHTML = '';
+                if(snap.empty) { container.innerHTML = '<p style="color:#666">No hay solicitudes.</p>'; return; }
+                
+                snap.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px">
+                            <span class="tag">${data.servicio}</span>
+                            <button onclick="borrarMsg('${docSnap.id}')" style="background:none; border:none; color:#ff3366; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <h3 style="font-size:1.1rem">${data.nombre}</h3>
+                        <p style="font-size:0.9rem; color:var(--text-muted)">${data.email}</p>
+                        <hr style="border-color:var(--border); margin:15px 0;">
+                        <p>${data.mensaje}</p>
+                        <a href="mailto:${data.email}" class="btn btn-outline" style="margin-top:15px; width:100%; justify-content:center; font-size:0.8rem;">Responder</a>
+                    `;
+                    container.appendChild(card);
+                });
+            }, err => showToast("Error cargando mensajes: " + err.message, 'error'));
+        }
+
+        window.borrarMsg = async (id) => {
+            if(confirm("¿Eliminar solicitud?")) {
+                await deleteDoc(doc(db, "solicitudes", id));
+                showToast("Solicitud eliminada", 'success');
+            }
+        }
+
+        // SUBMIT FORM
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerHTML;
-            
+            const btn = e.target.querySelector('button[type="submit"]');
+            const original = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
             btn.disabled = true;
 
@@ -258,62 +358,20 @@
                     mensaje: document.getElementById('message').value,
                     fecha: Timestamp.now()
                 });
-                
-                showToast('Solicitud enviada correctamente a la Base de Datos', 'success');
+                showToast("¡Solicitud enviada a la Base de Datos!", 'success');
                 e.target.reset();
-
-            } catch (error) {
-                console.error("Error Firestore:", error);
-                if (error.code === 'permission-denied') {
-                    showToast('Error de Permisos: Habilita Firestore en la consola.', 'error');
+            } catch (err) {
+                console.error(err);
+                if(err.code === 'permission-denied') {
+                    showToast("ERROR CRÍTICO: Debes habilitar la BD en Firebase Console", 'error');
                 } else {
-                    showToast('Error al conectar con el servidor.', 'error');
+                    showToast("Error de conexión", 'error');
                 }
             } finally {
-                btn.innerHTML = originalText;
+                btn.innerHTML = original;
                 btn.disabled = false;
             }
         });
-
-        // 4. CARGAR MENSAJES (SOLO ADMIN)
-        function cargarMensajes() {
-            const container = document.getElementById('msgContainer');
-            const q = query(collection(db, "solicitudes"), orderBy("fecha", "desc"));
-            
-            onSnapshot(q, (snapshot) => {
-                container.innerHTML = '';
-                if(snapshot.empty) {
-                    container.innerHTML = '<p style="color:#aaa;">No hay mensajes nuevos.</p>';
-                    return;
-                }
-
-                snapshot.forEach(docSnap => {
-                    const data = docSnap.data();
-                    const div = document.createElement('div');
-                    div.className = 'msg-card';
-                    div.innerHTML = `
-                        <h3 style="color:var(--neon-blue);">${data.nombre}</h3>
-                        <p style="color:#888; font-size:0.9rem;">${data.servicio} | ${data.email}</p>
-                        <hr style="border-color:rgba(255,255,255,0.1); margin:10px 0;">
-                        <p>${data.mensaje}</p>
-                        <div style="margin-top:15px; text-align:right;">
-                             <button onclick="borrar('${docSnap.id}')" style="background:none; border:1px solid red; color:red; padding:5px 10px; cursor:pointer;">Borrar</button>
-                             <a href="mailto:${data.email}" style="background:var(--neon-blue); color:black; padding:5px 10px; text-decoration:none;">Responder</a>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-            }, (error) => {
-                 container.innerHTML = `<p style="color:red">Error cargando mensajes: ${error.message}</p>`;
-            });
-        }
-
-        window.borrar = async (id) => {
-            if(confirm("¿Borrar mensaje?")) {
-                await deleteDoc(doc(db, "solicitudes", id));
-                showToast('Mensaje eliminado', 'success');
-            }
-        }
     </script>
 </body>
 </html>
